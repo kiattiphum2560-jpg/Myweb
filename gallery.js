@@ -1,22 +1,54 @@
-const galleryPhotoNumbers = [
-    ...Array.from({ length: 89 }, (_, index) => index + 1),
-    91,
-    ...Array.from({ length: 7 }, (_, index) => index + 93),
-    ...Array.from({ length: 4 }, (_, index) => index + 101),
-    ...Array.from({ length: 4 }, (_, index) => index + 109),
-    128,
-    130,
-    ...Array.from({ length: 7 }, (_, index) => index + 133)
-];
 const galleryPhotoSources = [
-    ...galleryPhotoNumbers.map((number) => {
-        const extension =
-            (number >= 26 && number <= 49) || (number >= 51 && number <= 57)
-                ? "JPG"
-                : "jpg";
-        return `image_01 (${number}).${extension}`;
-    }),
-    "image_01 (1).PNG"
+    "image_01 (1).jpg",
+    "image_01 (112).jpg",
+    "image_01 (128).jpg",
+    "image_01 (13).jpg",
+    "image_01 (133).jpg",
+    "image_01 (137).jpg",
+    "image_01 (138).jpg",
+    "image_01 (139).jpg",
+    "image_01 (14).jpg",
+    "image_01 (17).jpg",
+    "image_01 (18).jpg",
+    "image_01 (19).jpg",
+    "image_01 (20).jpg",
+    "image_01 (22).jpg",
+    "image_01 (24).jpg",
+    "image_01 (26).JPG",
+    "image_01 (27).JPG",
+    "image_01 (29).JPG",
+    "image_01 (3).jpg",
+    "image_01 (32).JPG",
+    "image_01 (4).jpg",
+    "image_01 (41).JPG",
+    "image_01 (46).JPG",
+    "image_01 (47).JPG",
+    "image_01 (5).jpg",
+    "image_01 (52).JPG",
+    "image_01 (53).JPG",
+    "image_01 (55).JPG",
+    "image_01 (6).jpg",
+    "image_01 (60).jpg",
+    "image_01 (61).jpg",
+    "image_01 (65).jpg",
+    "image_01 (66).jpg",
+    "image_01 (67).jpg",
+    "image_01 (68).jpg",
+    "image_01 (7).jpg",
+    "image_01 (70).jpg",
+    "image_01 (71).jpg",
+    "image_01 (73).jpg",
+    "image_01 (76).jpg",
+    "image_01 (77).jpg",
+    "image_01 (78).jpg",
+    "image_01 (80).jpg",
+    "image_01 (81).jpg",
+    "image_01 (83).jpg",
+    "image_01 (87).jpg",
+    "image_01 (88).jpg",
+    "image_01 (95).jpg",
+    "image_01 (96).jpg",
+    "image_01 (98).jpg"
 ];
 
 const galleryDatabaseName = "myweb-gallery";
@@ -131,11 +163,12 @@ const initializeGallery = async () => {
         gallery.dataset.loaded === "true"
     ) return;
 
-    gallery.dataset.staticCount = String(galleryPhotoSources.length);
+    const shuffledSources = getShuffledGallerySources();
+    gallery.dataset.staticCount = String(shuffledSources.length);
     gallery.dataset.uploadCount = "0";
     updateGalleryPhotoCount(gallery, photoCount);
 
-    getShuffledGallerySources().forEach((fileName, index) => {
+    shuffledSources.forEach((fileName, index) => {
         const card = document.createElement("figure");
         const image = document.createElement("img");
         const photoNumber = index + 1;
